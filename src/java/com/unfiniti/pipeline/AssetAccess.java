@@ -33,23 +33,12 @@ public class AssetAccess
     {
         Properties props = new Properties();
         if(pathToFileInputStream == null || pathToFileInputStream.isEmpty()){
-            pathToFileInputStream = System.getenv("pathToAssetManifest");
+            pathToFileInputStream = System.getProperty("pathToAssetManifest");
         }
         try (InputStream in = new FileInputStream(pathToFileInputStream))
         {
             props.load(in);
-            collectionOfAssets = new ConcurrentHashMap<>(props.size());
-            Enumeration listofEntries = props.elements();
-            
-            while(listofEntries.hasMoreElements()){
-                try{
-                Map.Entry stuff = (Map.Entry) listofEntries.nextElement();
-                collectionOfAssets.put( (String)stuff.getKey(), (String) stuff.getValue());
-                } catch (java.lang.ClassCastException ex){
-                    continue;
-                }
-                
-            }
+            collectionOfAssets = new ConcurrentHashMap(props);
         } catch (Exception ex)
         {
             ex.printStackTrace();
