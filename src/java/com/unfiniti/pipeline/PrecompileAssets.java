@@ -63,12 +63,10 @@ public class PrecompileAssets
     	  String relativePathToFile = filePath.substring(filePath.lastIndexOf("assets") + 7, filePath.lastIndexOf(fileName));
     	  //System.out.println(relativePathToFile);
     		String hash = SHASum(file);
-    		
     		String[] fileNameAttributes = fileName.split("\\.(?=[^\\.]+$)");
     		String processedFileName = fileNameAttributes[0] + "-" + hash + "." + fileNameAttributes[1];
-    		                     
     		File processedFileHandle = new File(currentDir + processedFileName);
-    		System.out.println(fileNameAttributes[1]);
+    		
     		if (optimizeAssets && (fileNameAttributes[1].equals("css") || fileNameAttributes[1].equals("js")))
     		{
     		  try
